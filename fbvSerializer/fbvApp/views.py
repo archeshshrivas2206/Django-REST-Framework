@@ -20,13 +20,13 @@ def student_list(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.error,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
-def student_detail(request,pk):
+def student_detail(request,primarykey):
     try :
-        student= Student.objects.get(pk=pk)
+        student= Student.objects.get(pk=primarykey)
     except Student.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
