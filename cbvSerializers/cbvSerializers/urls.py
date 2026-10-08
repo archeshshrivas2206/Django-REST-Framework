@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from cbvApp import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('students/',views.StudentList.as_view()),
+    path('students/<int:pk>/',views.StudentDetail.as_view()),
+
 ]
