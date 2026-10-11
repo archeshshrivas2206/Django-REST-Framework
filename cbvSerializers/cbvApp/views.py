@@ -5,8 +5,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from django.http import Http404
+from rest_framework import mixins,generics
+
+class StudentList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+    queryset=Student.objects.all()
+    serializer_class = StudentSerializer
+    
+    def get(self,request):
+        return self.list
+    
 
 # Create your views here.
+""" 
 class StudentList(APIView):
 
     def get(self,request):
@@ -53,3 +63,4 @@ class StudentDetail(APIView):
         student=self.validator(pk)
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+"""
