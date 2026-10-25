@@ -6,7 +6,14 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import mixins,generics
+from rest_framework import viewsets
 
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset=Student.objects.all()
+    serializer_class=StudentSerializer
+
+"""
 class StudentList(generics.ListCreateAPIView):
     queryset=Student.objects.all()
     serializer_class=StudentSerializer
@@ -17,9 +24,6 @@ class StudentDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=StudentSerializer
 
 
-
-
-"""
 class StudentList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
     queryset=Student.objects.all()
     serializer_class = StudentSerializer
@@ -65,6 +69,7 @@ class StudentList(APIView):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+        
 class StudentDetail(APIView):
 
     def validator(self,primary_key):
